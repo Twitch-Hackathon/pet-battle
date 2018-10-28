@@ -3,23 +3,23 @@ import Authentication from '../../util/Authentication/Authentication'
 
 import './App.css'
 
--
 export default class App extends React.Component{
     constructor(props){
         super(props)
         this.Authentication = new Authentication()
 
-        //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
+        //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null. 
         this.twitch = window.Twitch ? window.Twitch.ext : null
         this.state={
             finishedLoading:false,
             theme:'light',
             isVisible:true,
-            channelId: null,
             bossName: 'Raid Boss',
             bossAvatar: 'https://static-cdn.jtvnw.net/emoticons/v1/973/3.0',
             bossMaxHP: 100,
-            bossHP: 100
+            bossHP: 100,
+            shake: false,
+            dead: false
         }
 
         this.doDamage = this.doDamage.bind(this);
@@ -45,13 +45,6 @@ export default class App extends React.Component{
         if(this.twitch){
             this.twitch.onAuthorized((auth)=>{
                 this.Authentication.setToken(auth.token, auth.userId)
-                this.setState({channelId: auth.channelId})
-                axios.post('http://localhost:5000/boss', {channelId: this.state.channelId})
-                .then((res) => {
-                    this.setState({
-                        bossHP: res.data.health;
-                    })
-                })
                 if(!this.state.finishedLoading){
                     // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
 
@@ -64,7 +57,7 @@ export default class App extends React.Component{
 
             this.twitch.listen('broadcast',(target,contentType,body)=>{
                 this.twitch.rig.log(`New PubSub message!\n${target}\n${contentType}\n${body}`)
-                // now that you've got a listener, do something with the result...
+                // now that you've got a listener, do something with the result... 
 
                 // do something...
 
@@ -85,15 +78,19 @@ export default class App extends React.Component{
             this.twitch.unlisten('broadcast', ()=>console.log('successfully unlistened'))
         }
     }
-
+   
     doDamage(){
         let {bossHP} = this.state;
         bossHP -= 10;
         if(bossHP > 0) {
             this.setState({bossHP});
         } else {
-            this.generateBoss();
+            this.setState({dead: true});
+            setTimeout(()=>{
+                this.generateBoss();
+            }, 500);
         }
+        this.setState({shake: true});      
     }
 
     generateBoss(){
@@ -106,13 +103,23 @@ export default class App extends React.Component{
 
     render(){
 
+        let currentAnimation = '';
+
+        if(this.state.dead){
+            currentAnimation = "raid-boss-avatar dead"
+        } else if(this.state.shake){
+            currentAnimation = "raid-boss-avatar shake";
+        } else {
+            currentAnimation = "raid-boss-avatar";
+        }
+
         if(this.state.finishedLoading && this.state.isVisible){
             return (
                 <div className="App raid-boss-container">
                     <div className="raid-boss-header">
                         {this.state.bossName}
                     </div>
-                    <img className="raid-boss-avatar" src={this.state.emote}/>
+                    <img onClick={this.doDamage} className={currentAnimation} onAnimationEnd={() => this.setState({shake: false, dead: false})} src={this.state.bossAvatar}/>
                     <div className="raid-boss-hp">
                         HP: {this.state.bossHP}
                     </div>
