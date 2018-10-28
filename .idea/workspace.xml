@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9317d884-875c-4082-af0a-0faed31686fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/App/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/App/App.js" afterDir="false" />
-    </list>
+    <list default="true" id="9317d884-875c-4082-af0a-0faed31686fd" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/components/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -2122,7 +2118,7 @@
     <entry file="file://$PROJECT_DIR$/frontend/src/components/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
         </state>
       </provider>
     </entry>
