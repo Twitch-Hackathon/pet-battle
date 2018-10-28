@@ -21,10 +21,18 @@ export default class App extends React.Component{
             isVisible:true,
             channelId: null,
             health: 0,
-            emote: ''
+            emote: '',
+            shake: false,
+            dead: false
         }
 
         this.doDamage = this.doDamage.bind(this);
+
+        document.body.addEventListener("onContext1", doSomething, false);
+
+        function doSomething(e) {
+            alert("Event is called: " + e.type);
+        }
     }
 
     contextUpdate(context, delta){
@@ -110,20 +118,34 @@ export default class App extends React.Component{
         socket.on('attack', (res)=>
             this.setState({health: res.health})
         )
-        console.log(this.state.health);
+        this.setState({shake:true});
         if(this.state.health <= 10){
-            this.generateEmote();
+            this.setState({dead:true});
+            setTimeout(() => {
+                this.generateEmote();
+            }, 500)
         }
     }
 
     render(){
+
+        let currentAnimation = '';
+
+        if(this.state.dead){
+            currentAnimation = "raid-boss-avatar dead"
+        } else if(this.state.shake){
+            currentAnimation = "raid-boss-avatar shake";
+        } else {
+            currentAnimation = "raid-boss-avatar";
+        }
+
         if(this.state.finishedLoading && this.state.isVisible){
             return (
                 <div className="App raid-boss-container">
                     <div className="raid-boss-header">
                         RAID BOSS
                     </div>
-                    <img onClick={this.doDamage} className="raid-boss-avatar" src={this.state.emote}/>
+                    <img onClick={this.doDamage} className={currentAnimation} onAnimationEnd={() => this.setState({shake: false, dead: false})} src={this.state.emote}/>
                     <div className="raid-boss-hp">
                         HP: {this.state.health}
                     </div>

@@ -51,16 +51,31 @@
 	transform: translate(-50%, -10%);
 }
 
-.shaking {
+.shake {
 	animation: shake 0.25s 1;
 }
 
 @keyframes shake {
 	50% {
-		transform: translate(-50%, -10%) rotate(-45deg);
+		transform: translate(-50%, 20%) rotate(-30deg);
 	}
 
 	100% {
-		transform: translate(-50%, -10%) rotate(45deg);
+		transform: translate(-50%, 20%) rotate(30deg);
+	}
+}
+
+.dead {
+	animation: dead 0.5s;
+}
+
+@keyframes dead {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate(-50%, 60%);
 	}
 }
