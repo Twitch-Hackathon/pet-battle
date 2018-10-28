@@ -23,7 +23,9 @@ export default class App extends React.Component{
             health: 0,
             emote: '',
             shake: false,
-            dead: false
+            dead: false,
+            subName: '',
+            showSub: false
         }
 
         this.doDamage = this.doDamage.bind(this);
@@ -99,6 +101,12 @@ export default class App extends React.Component{
         }
 
         this.generateEmote();
+        socket.on('levelup', (res) =>{
+            this.setState({health: res.health});
+            this.genName();
+            this.setState({showSub: true});
+        })
+
     }
 
     componentWillUnmount(){
@@ -118,6 +126,7 @@ export default class App extends React.Component{
         socket.on('attack', (res)=>
             this.setState({health: res.health})
         )
+
         this.setState({shake:true});
         if(this.state.health <= 10){
             this.setState({dead:true});
@@ -127,9 +136,16 @@ export default class App extends React.Component{
         }
     }
 
+    genName(){
+        const names = ['pay79', 'new678', 'fish08', 'tai64', 'mai97', 'guy00', 'sir16', 'kay73'];
+        const subName = names[Math.floor(Math.random()*names.length)]
+        this.setState({subName})
+    }
+
     render(){
 
         let currentAnimation = '';
+        let newSub = '';
 
         if(this.state.dead){
             currentAnimation = "raid-boss-avatar dead"
@@ -139,6 +155,15 @@ export default class App extends React.Component{
             currentAnimation = "raid-boss-avatar";
         }
 
+        if(!this.state.showSub){
+            newSub = 'sub-notification hidden'
+        } else {
+            newSub = 'sub-notification'
+            setTimeout( () => {
+                this.setState({showSub:false});
+            }, 2000);
+        }
+
         if(this.state.finishedLoading && this.state.isVisible){
             return (
                 <div className="App raid-boss-container">
@@ -146,6 +171,7 @@ export default class App extends React.Component{
                         RAID BOSS
                     </div>
                     <img onClick={this.doDamage} className={currentAnimation} onAnimationEnd={() => this.setState({shake: false, dead: false})} src={this.state.emote}/>
+                    <p className={newSub}>{this.state.subName} Subscribed!</p>
                     <div className="raid-boss-hp">
                         HP: {this.state.health}
                     </div>

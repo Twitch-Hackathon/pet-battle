@@ -79,3 +79,18 @@
 		transform: translate(-50%, 60%);
 	}
 }
+
+.sub-notification {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -90%);
+    font-size: 10rem;
+    z-index: 10;
+    background: #fff;
+    text-align: center;
+}
+
+.hidden{
+    display: none;
+}
