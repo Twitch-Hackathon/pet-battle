@@ -1,5 +1,5 @@
 # Configuration
-conf/*
+*/conf/*
 
 # Junk
 .DS_Store
