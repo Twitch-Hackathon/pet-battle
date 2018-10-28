@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const petSchema = Schema({
+const PetSchema = Schema({
     level: {
         type: Number,
-        default: 0,
+        default: 1,
         required: true
     },
     userId: {
@@ -19,4 +19,16 @@ const petSchema = Schema({
         type: Boolean,
         default: false
     }
+})
+
+PetSchema.pre('save', function(next) {
+    if(!this.isModified('health')) {
+        return next();
+    }
+
+    if(this.health <= 0) {
+        this.level++;
+        this.health = level * 500;
+    }
+    next();
 })
