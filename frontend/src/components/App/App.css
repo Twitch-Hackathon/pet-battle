@@ -9,3 +9,58 @@
 .App-dark{
     color:#e5e3e8;
 }
+
+.raid-boss-container {
+	height: 1024px;
+	background-color: #fff;
+	position: relative;
+}
+
+.raid-boss-header {
+	background-color: #7D55C7;
+	font-size: 5rem;
+	padding: 5px;
+	color: #fff;
+	text-align: center;
+}
+
+/*.raid-boss-avatar-wrapper {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}*/
+
+.raid-boss-avatar {
+	width: 40%;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	transform: translate(-50%, 30%);
+}
+
+.raid-boss-hp{
+	font-size: 4rem;
+	color: #000;
+	font-weight: bold;
+	position: absolute;
+	left: 50%;
+	bottom: 10%;
+	transform: translate(-50%, -10%);
+}
+
+.shaking {
+	animation: shake 0.25s 1;
+}
+
+@keyframes shake {
+	50% {
+		transform: translate(-50%, -10%) rotate(-45deg);
+	}
+
+	100% {
+		transform: translate(-50%, -10%) rotate(45deg);
+	}
+}

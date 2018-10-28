@@ -8,7 +8,7 @@ const PetSchema = Schema({
         required: true
     },
     userId: {
-        type: Number,
+        type: String,
         required: true
     },
     health: {
@@ -27,8 +27,10 @@ PetSchema.pre('save', function(next) {
     }
 
     if(this.health <= 0) {
-        this.level++;
-        this.health = level * 500;
+        this.level = this.level + 1;
+        this.health = this.level * 100;
     }
     next();
-})
+});
+
+module.exports = mongoose.model('Pet', PetSchema);
